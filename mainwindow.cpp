@@ -8,6 +8,8 @@
 #include <QFile>
 #include <QTextStream>
 #include <QString>
+#include <QPainter>
+#include <QPdfWriter>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -20,16 +22,19 @@ MainWindow::MainWindow(QWidget *parent)
     file->addAction(openAction);
     QAction *saveAction = new QAction("&Save", this);
     file->addAction(saveAction);
+    QAction *pdfAction = new QAction("&Export As PDF", this);
 
     QToolBar *toolBar = addToolBar("Toolbar");
     toolBar->addAction(openAction);
     toolBar->addAction(saveAction);
+    toolBar->addAction(pdfAction);
 
     textedit = new QTextEdit(this);
     setCentralWidget(textedit);
 
     connect(openAction, &QAction::triggered, this, &MainWindow::openfile);
     connect(saveAction, &QAction::triggered, this, &MainWindow::savefile);
+    connect(pdfAction, &QAction::triggered, this, &MainWindow::transToPDF);
 }
 
 MainWindow::~MainWindow()
@@ -59,6 +64,23 @@ void MainWindow::savefile(){
         }
         QTextStream out(&file);
         out << textedit->toPlainText();
+        file.close();
+    }
+}
+
+void MainWindow::transToPDF(){
+    QString path = QFileDialog::getSaveFileName(this, tr("Export As PDF"), ".", tr("PDF Files(*.pdf)"));
+    if(!path.isEmpty()){
+        QFile file(path);
+        if(!file.open(QIODevice::WriteOnly)){
+            return;
+        }
+        QPdfWriter *pdfwriter = new QPdfWriter(&file);
+        QPainter *pdfpainter = new QPainter(pdfwriter);
+        pdfwriter->setPageSize(QPagedPaintDevice::A4);
+        pdfpainter->drawText(QRect(800, 700, 7800, 12300), textedit->toPlainText());
+        delete pdfpainter;
+        delete pdfwriter;
         file.close();
     }
 }

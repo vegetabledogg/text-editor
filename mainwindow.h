@@ -16,6 +16,7 @@ private:
 
     void openfile();
     void savefile();
+    void transToPDF();
 };
 
 #endif // MAINWINDOW_H
