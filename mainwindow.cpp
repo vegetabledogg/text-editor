@@ -14,15 +14,34 @@
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
 {
-    QMenuBar *menubar = menuBar();
-    QMenu *file = menubar->addMenu("&File");
-    QMenu *help = menubar->addMenu("&Help");
+    QMenuBar *mainMenu = menuBar();
+
+    QMenu *fileSubMenu = mainMenu->addMenu("&File");
 
     QAction *openAction = new QAction("&Open", this);
-    file->addAction(openAction);
+    fileSubMenu->addAction(openAction);
     QAction *saveAction = new QAction("&Save", this);
-    file->addAction(saveAction);
+    fileSubMenu->addAction(saveAction);
     QAction *pdfAction = new QAction("&Export As PDF", this);
+    fileSubMenu->addAction(pdfAction);
+
+    QMenu *editSubMenu = new QMenu(this);
+    QAction *editAction = new QAction("&Edit", this);
+    editAction->setMenu(editSubMenu);
+    mainMenu->addAction(editAction);
+
+    QAction *copyAction = new QAction("&Copy", this);
+    editSubMenu->addAction(copyAction);
+    QAction *pasteAction = new QAction("&Paste", this);
+    editSubMenu->addAction(pasteAction);
+    QAction *cutAction = new QAction("&Cut", this);
+    editSubMenu->addAction(cutAction);
+    QAction *redoAction = new QAction("&Redo", this);
+    editSubMenu->addAction(redoAction);
+    QAction *undoAction = new QAction("&Undo", this);
+    editSubMenu->addAction(undoAction);
+    QAction *clearAction = new QAction("&Clear", this);
+    editSubMenu->addAction(clearAction);
 
     QToolBar *toolBar = addToolBar("Toolbar");
     toolBar->addAction(openAction);
@@ -35,6 +54,13 @@ MainWindow::MainWindow(QWidget *parent)
     connect(openAction, &QAction::triggered, this, &MainWindow::openfile);
     connect(saveAction, &QAction::triggered, this, &MainWindow::savefile);
     connect(pdfAction, &QAction::triggered, this, &MainWindow::transToPDF);
+
+    connect(copyAction, SIGNAL(triggered()), textedit, SLOT(copy()));
+    connect(pasteAction, SIGNAL(triggered()), textedit, SLOT(paste()));
+    connect(cutAction, SIGNAL(triggered()), textedit, SLOT(cut()));
+    connect(redoAction, SIGNAL(triggered()), textedit, SLOT(redo()));
+    connect(undoAction, SIGNAL(triggered()), textedit, SLOT(undo()));
+    connect(clearAction, SIGNAL(triggered()), textedit, SLOT(clear()));
 }
 
 MainWindow::~MainWindow()
