@@ -92,16 +92,27 @@ MainWindow::MainWindow(QWidget *parent)
     alignSubMenu->addAction(setAlignJustifyAction);
 
     //构建工具栏
-    QToolBar *toolBar = addToolBar("Toolbar");
-    toolBar->addAction(openAction);
-    toolBar->addAction(saveAction);
-    toolBar->addAction(pdfAction);
-    toolBar->addAction(boldAction);
-    toolBar->addAction(italicAction);
-    toolBar->addAction(underlineAction);
-    toolBar->addAction(colorAction);
-    toolBar->addAction(setFontAction);
-    toolBar->addAction(alignAction);
+    QToolBar *toolBar1 = addToolBar("Toolbar1");
+    QToolBar *toolBar2 = addToolBar("Toolbar2");
+    toolBar1->addAction(openAction);
+    toolBar1->addAction(saveAction);
+    toolBar1->addAction(pdfAction);
+    toolBar2->addAction(boldAction);
+    toolBar2->addAction(italicAction);
+    toolBar2->addAction(underlineAction);
+    toolBar2->addAction(colorAction);
+    toolBar2->addAction(setFontAction);
+    toolBar2->addAction(alignAction);
+
+    //构建状态栏
+    statusBar();
+    //设置动作的状态信息
+    openAction->setStatusTip("Open a local file");
+    saveAction->setStatusTip("Save the file");
+    pdfAction->setStatusTip("Export as a PDF file");
+    boldAction->setStatusTip("Set format to bold");
+    italicAction->setStatusTip("Set format to italic");
+    underlineAction->setStatusTip("Set format to underlined");
 
     textedit = new QTextEdit(this);
     setCentralWidget(textedit);
