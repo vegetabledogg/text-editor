@@ -5,7 +5,7 @@
 这是一个基于Qt 5.8开发的简单的文本编辑器。
 
 ## 功能
-
+<pre>
 熊宝宝的记事本v1.0
 
 File: open local file
