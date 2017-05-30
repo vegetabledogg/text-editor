@@ -9,28 +9,28 @@
 熊宝宝的记事本v1.0
 
 File: open local file
-	  save file at local
-	  export as PDF file at local
+	   save file at local
+	   export as PDF file at local
 Edit: copy
-	  paste
-	  cut
-	  undo
-	  redo
-	  clear
+	   paste
+	   cut
+	   undo
+	   redo
+	   clear
 Toolbar: open
-		 save
-		 bold
+		  save
+		  bold
 	     italic
-    	 underline
+    	  underline
 	     export as PDF file
-		 color: set text color
-	    		set editor color
-		   	    set text background color
+		  color: set text color
+	    		  set editor color
+		   	     set text background color
 		 font
 		 align: set left alignment
-		   		set right alignment
-		   		set center alignment
-		   		set justify alignment	</pre>
+		   		 set right alignment
+		   		 set center alignment
+		   		 set justify alignment	</pre>
 
 其中将文本导出为PDF到本地的功能目前只支持导出一页A4大小的PDF。暂时还没有很好的解决方法。
 
